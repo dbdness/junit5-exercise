@@ -9,7 +9,6 @@ import java.util.List;
  */
 public interface FestivalArtistManager {
 
-
     /**
      * Reads the specified JSON file, and returns proper Artist objects from it.
      *
@@ -22,10 +21,10 @@ public interface FestivalArtistManager {
 
     /**
      * Returns all the artists playing on the specified day.
-     * Date format is: dd/MM/yyyy
-     * Example: 04/07/2018
      *
      * @param date    Day to check.
+     *                Date format is: dd/MM/yyyy
+     *                Example: 04/07/2018
      * @param artists List of artists registered to play.
      * @return a list of artists playing on the specified day.
      * @throws IllegalArgumentException if the correct data format is not matched.
