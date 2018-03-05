@@ -31,6 +31,7 @@ class FestivalArtistTest {
         artists.add(new Artist("Emil Kruse", Artist.Stage.Countdown, "06/07/2018 14:00", "06/07/2018 15:00"));
     }
 
+    //Data driven test number 1.
     @Test
     @DisplayName("Get artists from JSON")
     void getArtistsFromJson() throws FileNotFoundException {
@@ -41,6 +42,7 @@ class FestivalArtistTest {
         score++;
     }
 
+    //Data driven test number 2.
     @Test
     @DisplayName("Get artists from JSON - FileNotFoundException")
     void getArtistsFromJsonFileNotFoundTest() {
@@ -55,6 +57,7 @@ class FestivalArtistTest {
         score++;
     }
 
+    //Data driven test number 3.
     @Test
     @DisplayName("Get artists form JSON - JsonSyntaxException")
     void getArtistsFromJsonSyntaxTest() {
