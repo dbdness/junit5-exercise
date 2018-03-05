@@ -74,7 +74,7 @@ public class FestivalArtistImplementation implements FestivalArtistManager {
             }
         };
 
-        Collections.sort(artists, comparator);
+        artists.sort(comparator);
     }
 
     public Artist getLongestPlaying(List<Artist> artists) {
@@ -112,7 +112,7 @@ public class FestivalArtistImplementation implements FestivalArtistManager {
             }
         };
 
-        Collections.sort(artists, comparator);
+        artists.sort(comparator);
     }
 
     public void sortByPlaytime(List<Artist> artists) {
@@ -129,7 +129,7 @@ public class FestivalArtistImplementation implements FestivalArtistManager {
             }
         };
 
-        Collections.sort(artists, comparator);
+        artists.sort(comparator);
 
     }
 }

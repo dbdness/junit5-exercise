@@ -17,7 +17,7 @@ public class Artist {
         East(2),
         Gloria(1);
 
-        //Popularity rating
+        //Stage popularity rating. The higher the rating, the bigger the stage.
         private int popularity;
 
         Stage(int popularity) {
@@ -38,6 +38,16 @@ public class Artist {
     //When the show is expected to end
     private DateTime showEnd;
 
+    /**
+     * @param artistName Name of the artist.
+     * @param stage      Stage the artist is playing on.
+     * @param showStart  The time the show starts.
+     *                   The required format is: dd/MM/yyyy HH:mm.
+     *                   Example: 02/07/2018 15:00
+     * @param showEnd    The time the show ends.
+     *                   The required format is: dd/MM/yyyy HH:mm.
+     *                   Example: 02/07/2018 16:30
+     */
     public Artist(String artistName, Stage stage, String showStart, String showEnd) {
         this.artistName = artistName;
         this.stage = stage;

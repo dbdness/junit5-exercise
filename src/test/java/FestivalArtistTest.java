@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class FestivalArtistTest {
     private List<Artist> artists;
     private FestivalArtistImplementation artistManager;
+    private static int score = 0;
 
     @BeforeEach
     void init() {
@@ -34,6 +35,8 @@ class FestivalArtistTest {
         List<Artist> artistsFromJson = artistManager.getArtistsFromJson("artists.json");
         assertEquals(3, artistsFromJson.size());
         assertEquals("Bruno Mars", artistsFromJson.get(0).getArtistName());
+
+        score++;
     }
 
     @Test
@@ -41,10 +44,13 @@ class FestivalArtistTest {
     void getArtistsFromJsonFileNotFoundTest() {
         assertThrows(FileNotFoundException.class, this::fileNotFound);
 
+        score++;
     }
 
     private void fileNotFound() throws FileNotFoundException {
         List<Artist> artistsFromJson = artistManager.getArtistsFromJson("404.json");
+
+        score++;
     }
 
     @Test
@@ -52,10 +58,13 @@ class FestivalArtistTest {
     void getArtistsFromJsonSyntaxTest() {
         assertThrows(JsonSyntaxException.class, this::badJsonSyntax);
 
+        score++;
     }
 
     private void badJsonSyntax() throws IOException, JsonSyntaxException {
         List<Artist> artistsFromJson = artistManager.getArtistsFromJson("badJson.json");
+
+        score++;
     }
 
     @Test
@@ -65,16 +74,21 @@ class FestivalArtistTest {
         List<Artist> artistsByDay = artistManager.getArtistsByDay("04/07/2018", artists);
         assertEquals(1, artistsByDay.size());
 
+        score++;
     }
 
     @Test
     @DisplayName("Artists by day - bad format")
     void artistByDayExceptionTest() {
         assertThrows(IllegalArgumentException.class, this::badFormatEntered);
+
+        score++;
     }
 
     private void badFormatEntered() {
         List<Artist> artistsByDay = artistManager.getArtistsByDay("04-07-2018", artists);
+
+        score++;
     }
 
     @Test
@@ -83,7 +97,7 @@ class FestivalArtistTest {
         List<Artist> artistsByStage = artistManager.getArtistsByStage(Artist.Stage.Avalon, artists);
         assertEquals(2, artistsByStage.size());
 
-
+        score++;
     }
 
     @Test
@@ -93,6 +107,8 @@ class FestivalArtistTest {
         artistManager.sortArtistsByPopularity(artists);
         assertEquals("Eminem", artists.get(0).getArtistName());
         System.out.println(artists);
+
+        score++;
     }
 
     @Test
@@ -100,6 +116,8 @@ class FestivalArtistTest {
     void getLongestPlayingTest() {
         Artist longestPlaying = artistManager.getLongestPlaying(artists);
         assertEquals("Eminem", longestPlaying.getArtistName());
+
+        score++;
     }
 
     @Test
@@ -107,6 +125,8 @@ class FestivalArtistTest {
     void getShortestPlayingTest() {
         Artist shortestPlaying = artistManager.getShortestPlaying(artists);
         assertEquals("Vince Staples", shortestPlaying.getArtistName());
+
+        score++;
     }
 
     @Test
@@ -115,6 +135,8 @@ class FestivalArtistTest {
         assertEquals("Vince Staples", artists.get(0).getArtistName());
         artistManager.sortByArtistName(artists);
         assertEquals("Benal", artists.get(0).getArtistName());
+
+        score++;
     }
 
     @Test
@@ -123,11 +145,14 @@ class FestivalArtistTest {
         assertEquals("Vince Staples", artists.get(0).getArtistName());
         artistManager.sortByPlaytime(artists);
         assertEquals("Eminem", artists.get(0).getArtistName());
+
+        score++;
     }
 
     @AfterAll
     static void tearDownAll() {
-
+        System.out.println("All tests completed.");
+        System.out.printf("Passed: %d out of 11", score);
     }
 
 }
