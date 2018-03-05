@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -29,16 +31,18 @@ class FestivalArtistTest {
         artists.add(new Artist("Emil Kruse", Artist.Stage.Countdown, "06/07/2018 14:00", "06/07/2018 15:00"));
     }
 
+    //Data driven test number 1.
     @Test
     @DisplayName("Get artists from JSON")
     void getArtistsFromJson() throws FileNotFoundException {
         List<Artist> artistsFromJson = artistManager.getArtistsFromJson("artists.json");
-        assertEquals(3, artistsFromJson.size());
-        assertEquals("Bruno Mars", artistsFromJson.get(0).getArtistName());
+        assertThat(artistsFromJson, hasSize(3));
+        assertThat(artistsFromJson.get(0).getArtistName(), is("Bruno Mars"));
 
         score++;
     }
 
+    //Data driven test number 2.
     @Test
     @DisplayName("Get artists from JSON - FileNotFoundException")
     void getArtistsFromJsonFileNotFoundTest() {
@@ -53,6 +57,7 @@ class FestivalArtistTest {
         score++;
     }
 
+    //Data driven test number 3.
     @Test
     @DisplayName("Get artists form JSON - JsonSyntaxException")
     void getArtistsFromJsonSyntaxTest() {
@@ -63,16 +68,15 @@ class FestivalArtistTest {
 
     private void badJsonSyntax() throws IOException, JsonSyntaxException {
         List<Artist> artistsFromJson = artistManager.getArtistsFromJson("badJson.json");
-
-        score++;
     }
 
     @Test
     @DisplayName("Artists by day")
     void artistsByDayTest() {
-        assertEquals(5, artists.size());
+        assertThat(artists, hasSize(5));
         List<Artist> artistsByDay = artistManager.getArtistsByDay("04/07/2018", artists);
-        assertEquals(1, artistsByDay.size());
+        assertThat(artistsByDay, hasSize(1));
+        assertThat(artistsByDay.get(0).getArtistName(), is("Eminem"));
 
         score++;
     }
@@ -87,15 +91,13 @@ class FestivalArtistTest {
 
     private void badFormatEntered() {
         List<Artist> artistsByDay = artistManager.getArtistsByDay("04-07-2018", artists);
-
-        score++;
     }
 
     @Test
     @DisplayName("Artists by stage")
     void artistsByStageTest() {
         List<Artist> artistsByStage = artistManager.getArtistsByStage(Artist.Stage.Avalon, artists);
-        assertEquals(2, artistsByStage.size());
+        assertThat(artistsByStage, hasSize(2));
 
         score++;
     }
@@ -103,10 +105,9 @@ class FestivalArtistTest {
     @Test
     @DisplayName("Sort by popularity")
     void sortByPopularityTest() {
-        assertEquals("Vince Staples", artists.get(0).getArtistName());
+        assertThat(artists.get(0).getArtistName(), is("Vince Staples"));
         artistManager.sortArtistsByPopularity(artists);
-        assertEquals("Eminem", artists.get(0).getArtistName());
-        System.out.println(artists);
+        assertThat(artists.get(0).getArtistName(), is("Eminem"));
 
         score++;
     }
@@ -115,7 +116,7 @@ class FestivalArtistTest {
     @DisplayName("Get longest playing")
     void getLongestPlayingTest() {
         Artist longestPlaying = artistManager.getLongestPlaying(artists);
-        assertEquals("Eminem", longestPlaying.getArtistName());
+        assertThat(longestPlaying.getArtistName(), is("Eminem"));
 
         score++;
     }
@@ -124,7 +125,7 @@ class FestivalArtistTest {
     @DisplayName("Get shortest playing")
     void getShortestPlayingTest() {
         Artist shortestPlaying = artistManager.getShortestPlaying(artists);
-        assertEquals("Vince Staples", shortestPlaying.getArtistName());
+        assertThat(shortestPlaying.getArtistName(), is("Vince Staples"));
 
         score++;
     }
@@ -132,9 +133,9 @@ class FestivalArtistTest {
     @Test
     @DisplayName("Sort by artist name")
     void sortByArtistNameTest() {
-        assertEquals("Vince Staples", artists.get(0).getArtistName());
+        assertThat(artists.get(0).getArtistName(), is("Vince Staples"));
         artistManager.sortByArtistName(artists);
-        assertEquals("Benal", artists.get(0).getArtistName());
+        assertThat(artists.get(0).getArtistName(), is("Benal"));
 
         score++;
     }
@@ -142,9 +143,9 @@ class FestivalArtistTest {
     @Test
     @DisplayName("Sort by playtime")
     void sortByPlaytime() {
-        assertEquals("Vince Staples", artists.get(0).getArtistName());
+        assertThat(artists.get(0).getArtistName(), is("Vince Staples"));
         artistManager.sortByPlaytime(artists);
-        assertEquals("Eminem", artists.get(0).getArtistName());
+        assertThat(artists.get(0).getArtistName(), is("Eminem"));
 
         score++;
     }
