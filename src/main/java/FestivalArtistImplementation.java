@@ -34,7 +34,7 @@ public class FestivalArtistImplementation implements FestivalArtistManager {
             String showStart = jsonArtist.get("showStart").getAsString();
             String showEnd = jsonArtist.get("showEnd").getAsString();
 
-            Artist artist = new Artist(artistName, Artist.Stage.valueOf(stage), showStart, showEnd);
+            Artist artist = new Artist(artistName, Stage.valueOf(stage), showStart, showEnd);
             artistsFromJson.add(artist);
         }
 
@@ -57,7 +57,7 @@ public class FestivalArtistImplementation implements FestivalArtistManager {
         return artistsByDate;
     }
 
-    public List<Artist> getArtistsByStage(Artist.Stage stage, List<Artist> artists) {
+    public List<Artist> getArtistsByStage(Stage stage, List<Artist> artists) {
         List<Artist> artistsByStage = new ArrayList<Artist>();
 
         for (Artist artist : artists) {

@@ -3,6 +3,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,7 +13,6 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class FestivalArtistTest {
@@ -24,11 +25,11 @@ class FestivalArtistTest {
         artistManager = new FestivalArtistImplementation();
 
         artists = new ArrayList<>();
-        artists.add(new Artist("Vince Staples", Artist.Stage.Avalon, "05/07/2018 20:00", "05/07/2018 21:00"));
-        artists.add(new Artist("Eminem", Artist.Stage.Orange, "04/07/2018 20:00", "04/07/2018 22:30"));
-        artists.add(new Artist("Nephew", Artist.Stage.Orange, "05/07/2018 20:00", "05/07/2018 22:00"));
-        artists.add(new Artist("Benal", Artist.Stage.Avalon, "06/07/2018 16:00", "06/07/2018 17:15"));
-        artists.add(new Artist("Emil Kruse", Artist.Stage.Countdown, "06/07/2018 14:00", "06/07/2018 15:00"));
+        artists.add(new Artist("Vince Staples", Stage.Avalon, "05/07/2018 20:00", "05/07/2018 21:00"));
+        artists.add(new Artist("Eminem", Stage.Orange, "04/07/2018 20:00", "04/07/2018 22:30"));
+        artists.add(new Artist("Nephew", Stage.Orange, "05/07/2018 20:00", "05/07/2018 22:00"));
+        artists.add(new Artist("Benal", Stage.Avalon, "06/07/2018 16:00", "06/07/2018 17:15"));
+        artists.add(new Artist("Emil Kruse", Stage.Countdown, "06/07/2018 14:00", "06/07/2018 15:00"));
     }
 
     //Data driven test number 1.
@@ -40,6 +41,13 @@ class FestivalArtistTest {
         assertThat(artistsFromJson.get(0).getArtistName(), is("Bruno Mars"));
 
         score++;
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"artists.json"})
+    void parameterized(String jsonFile) throws FileNotFoundException {
+        List<Artist> artistsFromJson = artistManager.getArtistsFromJson(jsonFile);
+        assertThat(artistsFromJson, not(empty()));
     }
 
     //Data driven test number 2.
@@ -96,7 +104,7 @@ class FestivalArtistTest {
     @Test
     @DisplayName("Artists by stage")
     void artistsByStageTest() {
-        List<Artist> artistsByStage = artistManager.getArtistsByStage(Artist.Stage.Avalon, artists);
+        List<Artist> artistsByStage = artistManager.getArtistsByStage(Stage.Avalon, artists);
         assertThat(artistsByStage, hasSize(2));
 
         score++;

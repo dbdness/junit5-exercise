@@ -1,0 +1,22 @@
+{
+    "Artists": [
+        {
+            "artistName": "My Bloody Valentine",
+            "stage": "Arena",
+            "showStart": "05/07/2018 20:00",
+            "showEnd": "05/07/2018 21:30"
+        },
+        {
+            "artistName": "Khalid",
+            "stage": "Orange",
+            "showStart": "05/07/2018 21:00",
+            "showEnd": "05/07/2018 22:3"
+        },
+        {
+            "artistName": "St. Vincent",
+            "stage": "Arena",
+            "showStart": "04/07/2018 15:00",
+            "showEnd": "04/07/2018 16:00"
+        }
+    ]
+}

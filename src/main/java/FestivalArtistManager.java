@@ -38,7 +38,7 @@ public interface FestivalArtistManager {
      * @param artists List of artists registered to play.
      * @return a list of artists playing on the specified stage.
      */
-    public List<Artist> getArtistsByStage(Artist.Stage stage, List<Artist> artists);
+    public List<Artist> getArtistsByStage(Stage stage, List<Artist> artists);
 
     /**
      * Sorts the specified artists by popularity, based on the stage they are playing at.
