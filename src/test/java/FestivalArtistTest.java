@@ -35,7 +35,7 @@ class FestivalArtistTest {
     //Data driven test number 1.
     @Test
     @DisplayName("Get artists from JSON")
-    void getArtistsFromJson() throws FileNotFoundException {
+    void getArtistsFromJsonTest() throws FileNotFoundException {
         List<Artist> artistsFromJson = artistManager.getArtistsFromJson("artists.json");
         assertThat(artistsFromJson, hasSize(3));
         assertThat(artistsFromJson.get(0).getArtistName(), is("Bruno Mars"));
@@ -43,14 +43,19 @@ class FestivalArtistTest {
         score++;
     }
 
+    //Parameterized data driven test
     @ParameterizedTest
-    @ValueSource(strings = {"artists.json"})
-    void parameterized(String jsonFile) throws FileNotFoundException {
+    @ValueSource(strings = {"artists.json", "artists2.json", "artists3.json", "artists4.json", "artists5.json"})
+    @DisplayName("Data driven - Artist objects loaded")
+    void artistsLoadedFromJsonTest(String jsonFile) throws FileNotFoundException {
         List<Artist> artistsFromJson = artistManager.getArtistsFromJson(jsonFile);
+
         assertThat(artistsFromJson, not(empty()));
+
+        score++;
     }
 
-    //Data driven test number 2.
+    //Data driven test number 3.
     @Test
     @DisplayName("Get artists from JSON - FileNotFoundException")
     void getArtistsFromJsonFileNotFoundTest() {
@@ -65,7 +70,7 @@ class FestivalArtistTest {
         score++;
     }
 
-    //Data driven test number 3.
+    //Data driven test number 4.
     @Test
     @DisplayName("Get artists form JSON - JsonSyntaxException")
     void getArtistsFromJsonSyntaxTest() {
@@ -150,7 +155,7 @@ class FestivalArtistTest {
 
     @Test
     @DisplayName("Sort by playtime")
-    void sortByPlaytime() {
+    void sortByPlaytimeTest() {
         assertThat(artists.get(0).getArtistName(), is("Vince Staples"));
         artistManager.sortByPlaytime(artists);
         assertThat(artists.get(0).getArtistName(), is("Eminem"));
@@ -161,7 +166,7 @@ class FestivalArtistTest {
     @AfterAll
     static void tearDownAll() {
         System.out.println("All tests completed.");
-        System.out.printf("Passed: %d out of 11", score);
+        System.out.printf("Passed tests: %d out of 16", score);
     }
 
 }
